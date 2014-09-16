@@ -1,4 +1,4 @@
-script.pulsar.tankafetast
+script.pulsar.cuelgame
 =========================
 
-TankaFetast Pulsar provider for XBMC
+Cuelgame.net Pulsar provider for XBMC
