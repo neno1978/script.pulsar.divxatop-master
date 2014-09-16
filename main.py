@@ -16,7 +16,7 @@ def search(query, category=""):
   if category != "":
     category = "&category=" + category
     
-  response = urllib2.urlopen("http://cuelgame.net/search.php" % (urllib.quote_plus(query), category))
+  response = urllib2.urlopen("http://cuelgame.net/search.php%s" % (urllib.quote_plus(query), category))
   data = response.read()
   if response.headers.get("Content-Encoding", "") == "gzip":
     import zlib
