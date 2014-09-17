@@ -39,20 +39,19 @@ def search_movie(imdb_id, name, year):
 return data
 
  
-+def torrent2magnet(torrent_url):
-+  print "TL: Downloading " + torrent_url
-+  torrent = get_data(torrent_url)
-+  metadata = bencode.bdecode(torrent)
-+  hashcontents = bencode.bencode(metadata['info'])
-+  digest = hashlib.sha1(hashcontents).digest()
-+  b32hash = base64.b32encode(digest)
-+  magneturl = 'magnet:?xt=urn:btih:' + b32hash  + '&dn=' + metadata['info']['name']
-+  return magneturl
-+  
+def torrent2magnet(torrent_url):
+  print "TL: Downloading " + torrent_url
+  torrent = get_data(torrent_url)
+  metadata = bencode.bdecode(torrent)
+  hashcontents = bencode.bencode(metadata['info'])
+  digest = hashlib.sha1(hashcontents).digest()
+  b32hash = base64.b32encode(digest)
+  magneturl = 'magnet:?xt=urn:btih:' + b32hash  + '&dn=' + metadata['info']['name']
+  return magneturl
+  
  def search(query, category=""):
    data = get_data(URL_SEARCH % (urllib.quote_plus(query), category))
--  
-+  """
+  """
    rPayload = []
    for torrent in re.findall(r'/download/.*\.torrent', data):
      print os.path.join(URL_TL, torrent)
@@ -60,19 +59,19 @@ return data
      
    print rPayload
    return rPayload
-+  """
-+  
-+  """ TEMPORARILY RETURN MAGNETS (MAX 5) """
-+  count = 0
-+  MAX_TORRENTS = 2
-+  rPayload = []
-+  for torrent in re.findall(r'/download/.*\.torrent', data):
-+    count += 1
-+    rPayload.append({"uri": torrent2magnet(URL_TL + torrent)})
-+    if count >= MAX_TORRENTS:
-+      break
-+      
-+  return rPayload
+  """
+  
+  """ TEMPORARILY RETURN MAGNETS (MAX 5) """
+  count = 0
+  MAX_TORRENTS = 2
+  rPayload = []
+  for torrent in re.findall(r'/download/.*\.torrent', data):
+    count += 1
+    rPayload.append({"uri": torrent2magnet(URL_TL + torrent)})
+    if count >= MAX_TORRENTS:
+      break
+      
+  return rPayload
  
  def search_episode(imdb_id, tvdb_id, name, season, episode):
    # search only for episodes
